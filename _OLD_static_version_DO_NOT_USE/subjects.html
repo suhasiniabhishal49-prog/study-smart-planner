@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW Smart Study - Subjects</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .subject-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .subject-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+        .subject-icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .subject-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+        .subject-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+        .subject-progress {
+            margin-bottom: 24px;
+        }
+        .subject-progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .subject-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .subject-progress-fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+        .subject-btn {
+            background: #f8fafc;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            margin-top: auto;
+        }
+        .subject-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Subject Specifics */
+        .sub-maths .subject-icon-wrap { background: #eff6ff; color: var(--accent-blue); }
+        .sub-maths .subject-progress-fill { background: var(--accent-blue); width: 85%; }
+        
+        .sub-physics .subject-icon-wrap { background: #f0fdf4; color: var(--accent-green); }
+        .sub-physics .subject-progress-fill { background: var(--accent-green); width: 60%; }
+        
+        .sub-chem .subject-icon-wrap { background: #fffbeb; color: var(--accent-orange); }
+        .sub-chem .subject-progress-fill { background: var(--accent-orange); width: 75%; }
+        
+        .sub-bio .subject-icon-wrap { background: #f5f3ff; color: var(--accent-purple); }
+        .sub-bio .subject-progress-fill { background: var(--accent-purple); width: 40%; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h2>PW Study</h2>
+            </div>
+            <nav class="menu">
+                <a href="index.html" class="menu-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="subjects.html" class="menu-item active"><i class="fa-solid fa-book-open"></i> Subjects</a>
+                <a href="calendar.html" class="menu-item"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="progress.html" class="menu-item"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+                <a href="settings.html" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="pro-card">
+                <div class="pro-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Go Pro!</h3>
+                <button class="upgrade-btn">Upgrade</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="greeting">
+                    <h1>Your Subjects 📚</h1>
+                    <p>Manage courses and track syllabus completion.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <div class="profile-pic">
+                        <img src="https://ui-avatars.com/api/?name=Student&background=eb3636&color=fff" alt="Profile">
+                    </div>
+                </div>
+            </header>
+
+            <div class="subjects-grid">
+                <!-- Maths -->
+                <div class="subject-card sub-maths">
+                    <div class="subject-icon-wrap"><i class="fa-solid fa-calculator"></i></div>
+                    <h3>Mathematics</h3>
+                    <p>Next: Integration Modules</p>
+                    <div class="subject-progress">
+                        <div class="subject-progress-header">
+                            <span>Syllabus Covered</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="subject-progress-bar">
+                            <div class="subject-progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="subject-btn">Resume Study</div>
+                </div>
+
+                <!-- Physics -->
+                <div class="subject-card sub-physics">
+                    <div class="subject-icon-wrap"><i class="fa-solid fa-atom"></i></div>
+                    <h3>Physics</h3>
+                    <p>Next: Magnetism</p>
+                    <div class="subject-progress">
+                        <div class="subject-progress-header">
+                            <span>Syllabus Covered</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="subject-progress-bar">
+                            <div class="subject-progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="subject-btn">Resume Study</div>
+                </div>
+
+                <!-- Chemistry -->
+                <div class="subject-card sub-chem">
+                    <div class="subject-icon-wrap"><i class="fa-solid fa-flask"></i></div>
+                    <h3>Chemistry</h3>
+                    <p>Next: Organic Compounds</p>
+                    <div class="subject-progress">
+                        <div class="subject-progress-header">
+                            <span>Syllabus Covered</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="subject-progress-bar">
+                            <div class="subject-progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="subject-btn">Resume Study</div>
+                </div>
+
+                <!-- Biology -->
+                <div class="subject-card sub-bio">
+                    <div class="subject-icon-wrap"><i class="fa-solid fa-leaf"></i></div>
+                    <h3>Biology</h3>
+                    <p>Next: Genetics</p>
+                    <div class="subject-progress">
+                        <div class="subject-progress-header">
+                            <span>Syllabus Covered</span>
+                            <span>40%</span>
+                        </div>
+                        <div class="subject-progress-bar">
+                            <div class="subject-progress-fill"></div>
+                        </div>
+                    </div>
+                    <div class="subject-btn">Resume Study</div>
+                </div>
+                
+                <!-- Add New Subject -->
+                <div class="subject-card" style="border: 2px dashed var(--border-color); display: flex; align-items: center; justify-content: center; background: transparent; cursor: pointer;">
+                    <div style="text-align: center; color: var(--text-secondary);">
+                        <i class="fa-solid fa-plus" style="font-size: 32px; margin-bottom: 12px; color: var(--primary-color);"></i>
+                        <h3 style="color: var(--text-secondary);">Add Subject</h3>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

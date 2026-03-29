@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW Smart Study - Progress</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .progress-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .progress-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
+        }
+        .fill-maths { background: var(--accent-blue); width: 85%; }
+        .fill-physics { background: var(--accent-green); width: 60%; }
+        .fill-chemistry { background: var(--accent-orange); width: 75%; }
+        
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .badge-card {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+        }
+        .badge-icon {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+        .badge-card h4 {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h2>PW Study</h2>
+            </div>
+            <nav class="menu">
+                <a href="index.html" class="menu-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="subjects.html" class="menu-item"><i class="fa-solid fa-book-open"></i> Subjects</a>
+                <a href="calendar.html" class="menu-item"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="progress.html" class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+                <a href="settings.html" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="pro-card">
+                <div class="pro-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Go Pro!</h3>
+                <button class="upgrade-btn">Upgrade</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="greeting">
+                    <h1>Your Analytics 📈</h1>
+                    <p>Track your academic achievements.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <div class="profile-pic">
+                        <img src="https://ui-avatars.com/api/?name=Student&background=eb3636&color=fff" alt="Profile">
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Subject Progress -->
+                <div class="card span-2 glass">
+                    <div class="card-header">
+                        <h3>Subject Mastery</h3>
+                    </div>
+                    <ul class="progress-list">
+                        <li class="progress-item">
+                            <div class="progress-info">
+                                <span>Mathematics</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill fill-maths"></div>
+                            </div>
+                        </li>
+                        <li class="progress-item">
+                            <div class="progress-info">
+                                <span>Physics</span>
+                                <span>60%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill fill-physics"></div>
+                            </div>
+                        </li>
+                        <li class="progress-item">
+                            <div class="progress-info">
+                                <span>Chemistry</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill fill-chemistry"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Rewards / Badges -->
+                <div class="card glass">
+                    <div class="card-header">
+                        <h3>Recent Badges</h3>
+                    </div>
+                    <div class="badges-grid">
+                        <div class="badge-card">
+                            <div class="badge-icon"><i class="fa-solid fa-fire"></i></div>
+                            <h4>7 Day<br>Streak</h4>
+                        </div>
+                        <div class="badge-card">
+                            <div class="badge-icon"><i class="fa-solid fa-bullseye"></i></div>
+                            <h4>Task<br>Master</h4>
+                        </div>
+                        <div class="badge-card">
+                            <div class="badge-icon" style="color:#d4af37;"><i class="fa-solid fa-crown"></i></div>
+                            <h4>Top<br>10%</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Login - Nexa AI {% endblock %}
+
+{% block content %}
+<h2>Welcome Back! 👋</h2>
+<form method="post">
+    {% csrf_token %}
+    <div style="margin-bottom: 20px;">
+        <input type="text" name="username" class="form-control" placeholder="Username" required>
+    </div>
+    <div style="margin-bottom: 20px;">
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+    </div>
+    {% if form.errors %}
+    <p style="color:red; font-size: 14px; text-align: center;">Invalid username or password.</p>
+    {% endif %}
+    <button type="submit" class="btn-primary">Login to Dashboard</button>
+</form>
+<div class="auth-footer">
+    Don't have an account? <a href="{% url 'accounts:register' %}" style="color: #4318FF; font-weight: 500;">Create
+        one</a>
+</div>
+{% endblock %}

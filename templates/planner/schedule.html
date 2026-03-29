@@ -1,0 +1,46 @@
+{% extends 'planner/base.html' %}
+{% block title %}Schedule - PW Study{% endblock %}
+{% block header_title %}Smart Schedule 📅{% endblock %}
+{% block header_subtitle %}Auto-generated study plan based on your tasks.{% endblock %}
+
+{% block content %}
+
+<!-- Settings bar -->
+<form method="get" class="filter-bar" style="margin-bottom:24px;">
+    <label style="font-weight:600; color:var(--text-muted); align-self:center; white-space:nowrap;">
+        Daily Study Time:
+    </label>
+    <input type="number" name="minutes" value="{{ daily_minutes }}" min="30" max="720"
+           class="form-control" style="max-width:110px;">
+    <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-rotate"></i> Regenerate
+    </button>
+</form>
+
+{% if schedule_plan %}
+    {% for day in schedule_plan %}
+    <div class="day-block">
+        <h4>{{ day.date|date:"l, F j, Y" }}</h4>
+        {% for slot in day.tasks %}
+        <div class="slot-item" style="border-left-color: {{ slot.task.subject.color }};">
+            <div>
+                <strong style="font-size:15px;">{{ slot.task.title }}</strong>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">
+                    {{ slot.task.subject.name }} &bull; Priority: {{ slot.task.subject.priority }} &bull; Due: {{ slot.task.deadline|date:"M d" }}
+                </p>
+            </div>
+            <span class="slot-chip">{{ slot.allocated }} min</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+{% else %}
+<div class="empty-state card">
+    <i class="fa-solid fa-calendar-days"></i>
+    <p>No pending tasks to schedule! Add some tasks first.</p>
+    <a href="{% url 'planner:add_task' %}" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Add Task
+    </a>
+</div>
+{% endif %}
+{% endblock %}

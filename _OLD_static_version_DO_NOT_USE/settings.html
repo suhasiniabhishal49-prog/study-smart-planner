@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW Smart Study - Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+        }
+        .settings-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .settings-tab {
+            padding: 16px 20px;
+            background: transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .settings-tab i { font-size: 18px; width: 24px; }
+        .settings-tab:hover { background: #f8fafc; color: var(--text-primary); }
+        .settings-tab.active {
+            background: #ffffff;
+            color: var(--primary-color);
+            border-color: var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .settings-panel {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-sm);
+        }
+        .settings-panel h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .settings-panel > p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .form-group input {
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+            color: var(--text-primary);
+        }
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .avatar-upload {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+        .upload-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .upload-btn:hover { background: #f1f5f9; }
+
+        .save-bar {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h2>PW Study</h2>
+            </div>
+            <nav class="menu">
+                <a href="index.html" class="menu-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="subjects.html" class="menu-item"><i class="fa-solid fa-book-open"></i> Subjects</a>
+                <a href="calendar.html" class="menu-item"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="progress.html" class="menu-item"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+                <a href="settings.html" class="menu-item active"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="pro-card">
+                <div class="pro-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Go Pro!</h3>
+                <button class="upgrade-btn">Upgrade</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="greeting">
+                    <h1>Settings ⚙️</h1>
+                    <p>Manage your account preferences.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <div class="profile-pic">
+                        <img src="https://ui-avatars.com/api/?name=Student&background=eb3636&color=fff" alt="Profile">
+                    </div>
+                </div>
+            </header>
+
+            <div class="settings-grid">
+                <div class="settings-menu">
+                    <div class="settings-tab active"><i class="fa-regular fa-user"></i> My Profile</div>
+                    <div class="settings-tab"><i class="fa-regular fa-bell"></i> Notifications</div>
+                    <div class="settings-tab"><i class="fa-solid fa-shield-halved"></i> Security</div>
+                    <div class="settings-tab"><i class="fa-solid fa-palette"></i> Appearance</div>
+                </div>
+
+                <div class="settings-panel">
+                    <h3>Profile Information</h3>
+                    <p>Update your personal details and photo.</p>
+
+                    <div class="avatar-upload">
+                        <img src="https://ui-avatars.com/api/?name=Student&background=eb3636&color=fff" class="avatar-preview" alt="Avatar">
+                        <div>
+                            <button class="upload-btn" style="margin-bottom:8px;">Change Photo</button>
+                            <p style="font-size:13px; color:var(--text-secondary);">JPG, GIF or PNG. Max size of 2MB</p>
+                        </div>
+                    </div>
+
+                    <form onsubmit="event.preventDefault(); alert('Profile Updated!');">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" value="Student">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" value="PW">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" value="student@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Target Exam</label>
+                                <input type="text" value="JEE Advanced">
+                            </div>
+                        </div>
+
+                        <div class="save-bar">
+                            <button type="submit" class="btn-primary" style="width: auto; padding: 12px 28px;">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

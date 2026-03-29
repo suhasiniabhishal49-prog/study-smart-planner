@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW Smart Study Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.1">
+    <style>
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 20px; }
+        .hero h1 { font-size: 3.2rem; font-weight: 800; color: var(--text); margin-bottom: 14px; }
+        .hero h1 span { color: var(--primary); }
+        .hero p  { font-size: 1.2rem; color: var(--text-muted); max-width: 500px; margin-bottom: 40px; margin-top: 8px; }
+        .hero-btns a { padding: 14px 34px; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 700; transition: all 0.2s; }
+        .hero-btns { display: flex; gap: 16px; justify-content: center; }
+        .btn-hero-primary  { background: var(--primary); color: white; box-shadow: 0 4px 14px rgba(235,54,54,0.4); }
+        .btn-hero-primary:hover  { background: var(--primary-hover); transform: translateY(-2px); }
+        .btn-hero-secondary{ background: var(--card-bg); color: var(--text); border: 1px solid var(--border); }
+        .btn-hero-secondary:hover { border-color: var(--primary); color: var(--primary); }
+        .icon-big { font-size: 120px; color: var(--primary); opacity: 0.08; margin-bottom: -20px; }
+    </style>
+</head>
+<body>
+<div class="hero">
+    <i class="fa-solid fa-bolt-lightning icon-big"></i>
+    <h1>PW <span>Smart Study</span> Planner</h1>
+    <p>Organize subjects, schedule tasks, track progress — all in one place.</p>
+    <div class="hero-btns">
+        <a href="{% url 'planner:register' %}" class="btn-hero-primary">Get Started →</a>
+        <a href="{% url 'planner:login' %}" class="btn-hero-secondary">Login</a>
+    </div>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

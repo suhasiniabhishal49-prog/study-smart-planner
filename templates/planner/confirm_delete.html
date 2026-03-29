@@ -1,0 +1,26 @@
+{% extends 'planner/base.html' %}
+{% block title %}Confirm Delete - PW Study{% endblock %}
+{% block header_title %}Confirm Delete{% endblock %}
+{% block header_subtitle %}This action cannot be undone.{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 480px; margin: 60px auto; text-align: center;">
+    <div style="font-size: 64px; margin-bottom: 20px;">🗑️</div>
+    <h3 style="margin-bottom: 12px;">Delete {{ item_type }}?</h3>
+    <p style="color:var(--text-muted); margin-bottom: 32px;">
+        You are about to permanently delete <strong>"{{ item }}"</strong>.
+        {% if item_type == 'Subject' %}All tasks linked to this subject will also be deleted.{% endif %}
+    </p>
+    <form method="post" style="display:inline;">
+        {% csrf_token %}
+        <div style="display:flex; gap:14px; justify-content:center;">
+            {% if cancel_url == 'planner:subjects' %}
+                <a href="{% url 'planner:subjects' %}" class="btn btn-secondary">No, Keep It</a>
+            {% else %}
+                <a href="{% url 'planner:tasks' %}" class="btn btn-secondary">No, Keep It</a>
+            {% endif %}
+            <button type="submit" class="btn btn-red">Yes, Delete</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

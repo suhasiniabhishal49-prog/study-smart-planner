@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW Smart Study - Calendar</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .calendar-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .calendar-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .calendar-nav button {
+            background: #f1f5f9;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: 0.2s;
+        }
+        .calendar-nav button:hover { background: #e2e8f0; color: var(--primary-color); }
+        .calendar-nav span { font-weight: 600; font-size: 16px; margin: 0 12px; }
+
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .schedule-item {
+            display: flex;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+        .schedule-item:hover {
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+            border-color: var(--primary-light);
+        }
+        .schedule-time {
+            background: #f8fafc;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            border-right: 1px solid var(--border-color);
+        }
+        .schedule-time strong { font-size: 18px; color: var(--text-primary); }
+        .schedule-time span { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+        
+        .schedule-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .schedule-info h4 { font-size: 18px; margin-bottom: 6px; }
+        .schedule-info p { color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+        
+        .type-tag {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .type-live { background: #fee2e2; color: #dc2626; }
+        .type-self { background: #e0e7ff; color: #4338ca; }
+        .type-test { background: #fef3c7; color: #d97706; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h2>PW Study</h2>
+            </div>
+            <nav class="menu">
+                <a href="index.html" class="menu-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="subjects.html" class="menu-item"><i class="fa-solid fa-book-open"></i> Subjects</a>
+                <a href="calendar.html" class="menu-item active"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="progress.html" class="menu-item"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+                <a href="settings.html" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="pro-card">
+                <div class="pro-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Go Pro!</h3>
+                <button class="upgrade-btn">Upgrade</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="greeting">
+                    <h1>Schedule 📅</h1>
+                    <p>Plan your day efficiently.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <div class="profile-pic">
+                        <img src="https://ui-avatars.com/api/?name=Student&background=eb3636&color=fff" alt="Profile">
+                    </div>
+                </div>
+            </header>
+
+            <div class="card glass">
+                <div class="calendar-header">
+                    <h3>Today's Classes</h3>
+                    <div class="calendar-nav">
+                        <button><i class="fa-solid fa-chevron-left"></i></button>
+                        <span>Today</span>
+                        <button><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="schedule-list">
+                    <!-- Item 1 -->
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <strong>10:00 AM</strong>
+                            <span>1 hr 30 min</span>
+                        </div>
+                        <div class="schedule-content">
+                            <div class="schedule-info">
+                                <h4>Physics: Rotational Dynamics</h4>
+                                <p>Live class by Mr. Alakh Pandey</p>
+                            </div>
+                            <div class="type-tag type-live">Live Class</div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <strong>12:30 PM</strong>
+                            <span>1 hr</span>
+                        </div>
+                        <div class="schedule-content">
+                            <div class="schedule-info">
+                                <h4>Mathematics Revision</h4>
+                                <p>Self-study: Complete Chapter 5 MCQs</p>
+                            </div>
+                            <div class="type-tag type-self">Self Study</div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="schedule-item">
+                        <div class="schedule-time">
+                            <strong>04:00 PM</strong>
+                            <span>45 min</span>
+                        </div>
+                        <div class="schedule-content">
+                            <div class="schedule-info">
+                                <h4>Chemistry Weekly Mock Test</h4>
+                                <p>Test series - Topic: Solutions</p>
+                            </div>
+                            <div class="type-tag type-test">Mock Test</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

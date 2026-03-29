@@ -1,0 +1,35 @@
+{% extends 'planner/base.html' %}
+{% block title %}Add Subject - PW Study{% endblock %}
+{% block header_title %}Add Subject{% endblock %}
+{% block header_subtitle %}Create a new study area.{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 560px; margin: 0 auto;">
+    <h3 style="margin-bottom: 24px; font-size:20px;">New Subject</h3>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Subject Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}<p class="error-text">{{ form.name.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="form-group">
+            <label>Priority Level</label>
+            {{ form.priority }}
+        </div>
+
+        <div class="form-group">
+            <label>Color Tag</label>
+            {{ form.color }}
+            <small style="color:var(--text-muted); font-size:13px;">Pick a color to identify this subject.</small>
+        </div>
+
+        <div class="form-actions">
+            <a href="{% url 'planner:subjects' %}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save Subject</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

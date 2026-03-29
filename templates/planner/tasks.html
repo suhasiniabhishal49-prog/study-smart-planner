@@ -1,0 +1,86 @@
+{% extends 'planner/base.html' %}
+{% block title %}Tasks - PW Study{% endblock %}
+{% block header_title %}Tasks{% endblock %}
+{% block header_subtitle %}All your tasks in one place.{% endblock %}
+
+{% block content %}
+
+<!-- Filter bar -->
+<form method="get" class="filter-bar">
+    <input type="text" name="search" class="form-control" placeholder="Search tasks..." value="{{ search_query }}">
+    <select name="subject" class="form-control" style="max-width:220px;">
+        <option value="">All Subjects</option>
+        {% for s in subjects %}
+            <option value="{{ s.id }}" {% if selected_subject == s.id|stringformat:"s" %}selected{% endif %}>{{ s.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary" style="display:flex;align-items:center;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        Filter
+    </button>
+    <a href="{% url 'planner:tasks' %}" class="btn btn-secondary">Clear</a>
+    <a href="{% url 'planner:add_task' %}" class="btn btn-primary" style="margin-left:auto; display:flex; align-items:center; gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        Add Task
+    </a>
+</form>
+
+<!-- Task list -->
+<div class="card">
+    {% if tasks %}
+    <ul class="task-list">
+        {% for task in tasks %}
+        <li class="task-item {% if task.status == 'Completed' %}completed{% endif %}"
+            style="border-left-color: {{ task.subject.color }};">
+            <div class="task-info">
+                <h4>
+                    {{ task.title }}
+                    {% if task.is_overdue %}<span class="overdue-badge">Overdue!</span>{% endif %}
+                </h4>
+                <p>
+                    <span style="color:{{ task.subject.color }}; font-weight:700;">{{ task.subject.name }}</span>
+                    &bull; {{ task.estimated_time }} min
+                    &bull; Due: {{ task.deadline|date:"M d, Y g:i A" }}
+                    &bull; <strong>{{ task.status }}</strong>
+                </p>
+                {% if task.description %}
+                    <p style="margin-top:5px; font-size:13px; color:var(--text-muted);">{{ task.description }}</p>
+                {% endif %}
+            </div>
+            <div class="task-actions">
+                <form action="{% url 'planner:toggle_task_status' task.id %}" method="post">
+                    {% csrf_token %}
+                    {% if task.status == 'Pending' %}
+                        <button type="submit" class="btn btn-sm btn-green" style="display:flex;align-items:center;gap:5px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            Done
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn btn-sm btn-secondary" style="display:flex;align-items:center;gap:5px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                            Undo
+                        </button>
+                    {% endif %}
+                </form>
+                <a href="{% url 'planner:edit_task' task.id %}" class="btn btn-sm btn-secondary btn-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                </a>
+                <a href="{% url 'planner:delete_task' task.id %}" class="btn btn-sm btn-red btn-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                </a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty-state">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.2; margin-bottom:14px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <p>No tasks found. Add your first task!</p>
+        <a href="{% url 'planner:add_task' %}" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            Add Task
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

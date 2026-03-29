@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW Smart Study</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h2>PW Study</h2>
+            </div>
+            <nav class="menu">
+                <a href="index.html" class="menu-item active"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="subjects.html" class="menu-item"><i class="fa-solid fa-book-open"></i> Subjects</a>
+                <a href="calendar.html" class="menu-item"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
+                <a href="progress.html" class="menu-item"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+                <a href="settings.html" class="menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            </nav>
+            <div class="pro-card">
+                <div class="pro-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Go Pro!</h3>
+                <button class="upgrade-btn">Upgrade</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="greeting">
+                    <h1>Hello, Student! 👋</h1>
+                    <p>Let's make today productive.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <div class="profile-pic">
+                        <img src="https://ui-avatars.com/api/?name=Student&background=eb3636&color=fff" alt="Profile">
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Progress -->
+                <div class="card stats-card glass">
+                    <div class="stat-header">
+                        <h3>Weekly Progress</h3>
+                    </div>
+                    <div class="progress-circle" data-progress="75">
+                        <svg>
+                            <circle cx="60" cy="60" r="50"></circle>
+                            <circle cx="60" cy="60" r="50" class="progress"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <h2>75%</h2>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session -->
+                <div class="card session-card gradient-bg span-2">
+                    <div class="session-badge">Current Session</div>
+                    <h2>Advanced Calculus</h2>
+                    <div class="timer">
+                        <div class="time-block"><span id="minutes">45</span><small>MIN</small></div>
+                        <span class="colon">:</span>
+                        <div class="time-block"><span id="seconds">00</span><small>SEC</small></div>
+                    </div>
+                    <div class="session-actions">
+                        <button class="btn-primary" id="startTimer"><i class="fa-solid fa-play"></i> Start</button>
+                        <button class="btn-secondary" id="resetTimer"><i class="fa-solid fa-rotate-left"></i>
+                            Reset</button>
+                    </div>
+                </div>
+
+                <!-- Tasks -->
+                <div class="card tasks-card span-3 glass">
+                    <div class="card-header">
+                        <h3>Today's Plan</h3>
+                        <button class="add-task-btn" id="addTaskBtn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <ul class="task-list" id="taskList"></ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="taskModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New Task</h3>
+                <button id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="taskTitle" placeholder="Task Name">
+                <select id="taskSubject">
+                    <option value="cs">Computer Science</option>
+                    <option value="physics">Physics</option>
+                </select>
+                <input type="time" id="taskTime">
+                <button class="btn-primary full-width" id="saveTaskBtn">Save Task</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

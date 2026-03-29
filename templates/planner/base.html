@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PW Smart Study{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.1">
+    <style>
+        /* Inline SVG icons — no CDN needed */
+        .icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+        .icon-lg { width: 22px; height: 22px; }
+        .icon-xl { width: 28px; height: 28px; }
+
+        /* Make SVG inherit text color */
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="app-container">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="logo">
+            <!-- Lightning bolt logo -->
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#eb3636"><path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/></svg>
+            <h2>PW Study</h2>
+        </div>
+
+        <nav class="menu">
+            <a href="{% url 'planner:dashboard' %}" class="menu-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span>
+                Dashboard
+            </a>
+            <a href="{% url 'planner:subjects' %}" class="menu-item {% if 'subject' in request.resolver_match.url_name %}active{% endif %}">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z"/></svg></span>
+                Subjects
+            </a>
+            <a href="{% url 'planner:tasks' %}" class="menu-item {% if 'task' in request.resolver_match.url_name %}active{% endif %}">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
+                Tasks
+            </a>
+            <a href="{% url 'planner:schedule' %}" class="menu-item {% if request.resolver_match.url_name == 'schedule' %}active{% endif %}">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></span>
+                Schedule
+            </a>
+            <a href="{% url 'planner:calendar' %}" class="menu-item {% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg></span>
+                Calendar
+            </a>
+            <a href="{% url 'planner:progress' %}" class="menu-item {% if request.resolver_match.url_name == 'progress' %}active{% endif %}">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"/></svg></span>
+                Analytics
+            </a>
+            <a href="{% url 'planner:profile' %}" class="menu-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+                Profile
+            </a>
+        </nav>
+
+        <!-- Logout at the bottom -->
+        <form action="{% url 'planner:logout' %}" method="post" style="margin-top: auto; padding-top: 20px;">
+            {% csrf_token %}
+            <button type="submit" class="menu-item logout-btn">
+                <span class="icon"><svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg></span>
+                Logout
+            </button>
+        </form>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <header>
+            <div class="greeting">
+                <h1>{% block header_title %}Hello, {{ request.user.username }}! 👋{% endblock %}</h1>
+                <p>{% block header_subtitle %}Let's make today productive.{% endblock %}</p>
+            </div>
+            <div class="header-actions">
+                <!-- Dark mode toggle -->
+                <button class="icon-btn" id="darkModeBtn" onclick="toggleDarkMode()" title="Toggle dark mode">
+                    <span id="darkModeIcon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+                    </span>
+                </button>
+                <!-- Profile avatar -->
+                <a href="{% url 'planner:profile' %}" class="profile-pic" title="Profile">
+                    <img src="https://ui-avatars.com/api/?name={{ request.user.username }}&background=eb3636&color=fff" alt="Profile">
+                </a>
+            </div>
+        </header>
+
+        {% if messages %}
+        <div style="padding: 0 40px;">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="page-body">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</div>
+
+<script src="{% static 'js/script.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,73 @@
+{% extends 'planner/base.html' %}
+{% block title %}Profile - PW Study{% endblock %}
+{% block header_title %}My Profile{% endblock %}
+{% block header_subtitle %}Your account information and stats.{% endblock %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: 340px 1fr; gap: 22px; max-width: 900px; margin: 0 auto;">
+
+    <!-- Left: Profile Card -->
+    <div class="card" style="text-align:center;">
+        <div class="profile-hero">
+            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=eb3636&color=fff&size=120"
+                 alt="Avatar">
+            <h2>{{ user.username }}</h2>
+            <p>{{ user.email|default:"No email set" }}</p>
+        </div>
+        <div style="margin-top: 24px; text-align:left;">
+            <div class="info-row">
+                <span>Member Since</span>
+                <span>{{ user.date_joined|date:"M d, Y" }}</span>
+            </div>
+            <div class="info-row">
+                <span>Last Login</span>
+                <span>{{ user.last_login|date:"M d, Y" }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Stats -->
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+        <div class="card">
+            <h3 style="margin-bottom: 20px;">📊 Study Stats</h3>
+            <div class="info-row">
+                <span>Subjects Enrolled</span>
+                <span style="font-size:22px; font-weight:800; color: var(--accent-blue);">{{ subjects_count }}</span>
+            </div>
+            <div class="info-row">
+                <span>Total Tasks</span>
+                <span style="font-size:22px; font-weight:800; color: var(--text);">{{ total_tasks }}</span>
+            </div>
+            <div class="info-row">
+                <span>Tasks Completed</span>
+                <span style="font-size:22px; font-weight:800; color: var(--accent-green);">{{ completed }}</span>
+            </div>
+            <div class="info-row">
+                <span>Tasks Pending</span>
+                <span style="font-size:22px; font-weight:800; color: var(--accent-yellow);">{{ pending }}</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom: 18px;">⚡ Quick Actions</h3>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <a href="{% url 'planner:add_subject' %}" class="btn btn-primary">
+                    <i class="fa-solid fa-book-open"></i> Add Subject
+                </a>
+                <a href="{% url 'planner:add_task' %}" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Add Task
+                </a>
+                <a href="{% url 'planner:progress' %}" class="btn btn-secondary">
+                    <i class="fa-solid fa-chart-pie"></i> View Analytics
+                </a>
+                <form action="{% url 'planner:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-red">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

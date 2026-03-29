@@ -1,0 +1,70 @@
+{% extends 'planner/base.html' %}
+{% block title %}Analytics - PW Study{% endblock %}
+{% block header_title %}Analytics 📊{% endblock %}
+{% block header_subtitle %}Track your study progress.{% endblock %}
+
+{% block content %}
+
+<!-- Overall Stats -->
+<div class="stats-row" style="margin-bottom:24px;">
+    <div class="stat-box">
+        <h4>Total</h4>
+        <div class="stat-num" style="color:var(--text);">{{ total }}</div>
+    </div>
+    <div class="stat-box">
+        <h4>Completed</h4>
+        <div class="stat-num" style="color:var(--accent-green);">{{ completed }}</div>
+    </div>
+    <div class="stat-box">
+        <h4>Pending</h4>
+        <div class="stat-num" style="color:var(--accent-yellow);">{{ pending }}</div>
+    </div>
+    <div class="stat-box">
+        <h4>Overdue</h4>
+        <div class="stat-num" style="color:var(--primary);">{{ overdue }}</div>
+    </div>
+</div>
+
+<div style="display:grid; grid-template-columns: 240px 1fr; gap:22px; align-items:start;">
+
+    <!-- Progress Circle -->
+    <div class="card" style="text-align:center;">
+        <h3 style="margin-bottom:14px;">Overall</h3>
+        <div class="progress-circle" data-progress="{{ progress_pct }}">
+            <svg viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="55"></circle>
+                <circle cx="60" cy="60" r="55" class="progress"></circle>
+            </svg>
+            <div class="progress-text">
+                <h2>0%</h2>
+                <p>Completed</p>
+            </div>
+        </div>
+        <p style="margin-top:14px; color:var(--text-muted); font-size:14px;">{{ completed }} of {{ total }} tasks</p>
+    </div>
+
+    <!-- Subject Breakdown -->
+    <div class="card">
+        <h3 style="margin-bottom:22px;">Progress by Subject</h3>
+        {% if subject_stats %}
+            {% for stat in subject_stats %}
+            <div style="margin-bottom:22px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="font-weight:700; color:{{ stat.subject.color }};">{{ stat.subject.name }}</span>
+                    <span style="font-weight:700; color:var(--text-muted);">{{ stat.completed }}/{{ stat.total }} ({{ stat.percent }}%)</span>
+                </div>
+                <div style="background:var(--border); border-radius:20px; height:10px; overflow:hidden;">
+                    <div style="height:100%; width:{{ stat.percent }}%; background:{{ stat.subject.color }}; border-radius:20px; transition:width 1s ease;"></div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <i class="fa-solid fa-chart-pie"></i>
+                <p>Add subjects and tasks to see analytics.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

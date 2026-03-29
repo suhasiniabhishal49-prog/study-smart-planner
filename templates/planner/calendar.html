@@ -1,0 +1,68 @@
+{% extends 'planner/base.html' %}
+{% block title %}Calendar - PW Study{% endblock %}
+{% block header_title %}Calendar View 🗓️{% endblock %}
+{% block header_subtitle %}Browse tasks by time period.{% endblock %}
+
+{% block content %}
+
+<!-- Sort tabs -->
+<div style="display:flex; gap:12px; margin-bottom:22px;">
+    <a href="?sort=today"
+       class="btn {% if sort_by == 'today' %}btn-primary{% else %}btn-secondary{% endif %}">
+        Today
+    </a>
+    <a href="?sort=week"
+       class="btn {% if sort_by == 'week' %}btn-primary{% else %}btn-secondary{% endif %}">
+        This Week
+    </a>
+    <a href="?sort=all"
+       class="btn {% if sort_by == 'all' %}btn-primary{% else %}btn-secondary{% endif %}">
+        All Tasks
+    </a>
+</div>
+
+<div class="card">
+    {% if tasks %}
+    <ul class="task-list">
+        {% for task in tasks %}
+        <li class="task-item {% if task.status == 'Completed' %}completed{% endif %}"
+            style="border-left-color:{{ task.subject.color }};">
+            <div class="task-info">
+                <h4>
+                    {{ task.title }}
+                    {% if task.is_overdue %}<span class="overdue-badge">Overdue!</span>{% endif %}
+                </h4>
+                <p>
+                    <span style="color:{{ task.subject.color }}; font-weight:700;">{{ task.subject.name }}</span>
+                    &bull; {{ task.deadline|date:"l, M d, Y g:i A" }}
+                    &bull; {{ task.estimated_time }} min
+                </p>
+            </div>
+            <div class="task-actions">
+                <form action="{% url 'planner:toggle_task_status' task.id %}" method="post">
+                    {% csrf_token %}
+                    {% if task.status == 'Pending' %}
+                        <button type="submit" class="btn btn-sm btn-green">
+                            <i class="fa-solid fa-check"></i> Done
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn btn-sm btn-secondary">
+                            <i class="fa-solid fa-rotate-left"></i> Undo
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty-state">
+        <i class="fa-regular fa-calendar"></i>
+        <p>No tasks found for this period.</p>
+        <a href="{% url 'planner:add_task' %}" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Add Task
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'planner/base.html' %}
+{% block title %}{% if editing %}Edit Task{% else %}Add Task{% endif %} - PW Study{% endblock %}
+{% block header_title %}{% if editing %}Edit Task ✏️{% else %}Add Task ➕{% endif %}{% endblock %}
+{% block header_subtitle %}{% if editing %}Update the task details.{% else %}Create a new study task.{% endif %}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <h3 style="margin-bottom: 24px; font-size:20px;">
+        {% if editing %}Edit: {{ task.title }}{% else %}New Task{% endif %}
+    </h3>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Task Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}<p class="error-text">{{ form.title.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="form-group">
+            <label>Description (optional)</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-group">
+            <label>Subject</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}<p class="error-text">{{ form.subject.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="form-group">
+            <label>Deadline</label>
+            {{ form.deadline }}
+            {% if form.deadline.errors %}<p class="error-text">{{ form.deadline.errors.0 }}</p>{% endif %}
+        </div>
+
+        <div class="form-group">
+            <label>Estimated Study Time (minutes)</label>
+            {{ form.estimated_time }}
+        </div>
+
+        <div class="form-actions">
+            <a href="{% url 'planner:tasks' %}" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">
+                {% if editing %}Update Task{% else %}Save Task{% endif %}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

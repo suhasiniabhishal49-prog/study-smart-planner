@@ -1,0 +1,67 @@
+{% extends 'planner/base.html' %}
+{% block title %}Subjects - PW Study{% endblock %}
+{% block header_title %}Subjects{% endblock %}
+{% block header_subtitle %}Manage your study areas.{% endblock %}
+
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;">
+    <h3 style="font-size:20px; font-weight:700;">My Subjects ({{ subjects.count }})</h3>
+    <a href="{% url 'planner:add_subject' %}" class="btn btn-primary" style="display:flex;align-items:center;gap:8px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="white">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        </svg>
+        Add Subject
+    </a>
+</div>
+
+{% if subjects %}
+<div class="subject-grid">
+    {% for subject in subjects %}
+    <div class="subject-card" style="border-left-color:{{ subject.color}};">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
+            <h3 style="font-size:18px; font-weight:700;">{{ subject.name }}</h3>
+            <span class="priority-badge priority-{{ subject.priority }}">{{ subject.priority }}</span>
+        </div>
+        <p
+            style="color:var(--text-muted); font-size:14px; margin-bottom:16px; display:flex; align-items:center; gap:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+            </svg>
+            {{ subject.tasks.count }} task{{ subject.tasks.count|pluralize }}
+        </p>
+        <div style="display:flex; gap:10px;">
+            <a href="{% url 'planner:tasks' %}?subject={{ subject.id }}" class="btn btn-sm btn-secondary"
+                style="display:flex;align-items:center;gap:6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                View Tasks
+            </a>
+            <a href="{% url 'planner:delete_subject' subject.id %}" class="btn btn-sm btn-red btn-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                </svg>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state card">
+    <svg width="52" height="52" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.2; margin-bottom:14px;">
+        <path
+            d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z" />
+    </svg>
+    <p>No subjects added yet.</p>
+    <a href="{% url 'planner:add_subject' %}" class="btn btn-primary"
+        style="display:inline-flex;align-items:center;gap:8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        </svg>
+        Create First Subject
+    </a>
+</div>
+{% endif %}
+{% endblock %}
