@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Case, When, Value, IntegerField
+from django.contrib import messages
 
 from .models import Subject, Task
 from .forms import UserRegistrationForm, SubjectForm, TaskForm
@@ -177,6 +178,7 @@ def add_task(request):
             task = form.save(commit=False)
             task.user = request.user
             task.save()
+            messages.success(request, f'Task "{task.title}" created successfully!')
             return redirect('planner:tasks')
     else:
         form = TaskForm(user=request.user)
@@ -191,6 +193,7 @@ def edit_task(request, task_id):
         form = TaskForm(request.POST, instance=task, user=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Task "{task.title}" updated!')
             return redirect('planner:tasks')
     else:
         form = TaskForm(instance=task, user=request.user)
